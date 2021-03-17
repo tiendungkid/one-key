@@ -1,0 +1,147 @@
+body {
+    font-family: "Rubik", sans-serif;
+}
+
+body::-webkit-scrollbar {
+    width: 7px;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+    border-radius: 10px;
+}
+
+/**
+ * Color
+ */
+.text-mn-aurora-green {
+    color: #78e08f !important;
+}
+
+.text-mn-bright-ube {
+    color: #D6A2E8 !important;
+}
+
+.text-mn-pine-glade {
+    color: #BDC581 !important;
+}
+
+.text-mn-ufo-green {
+    color: #2ed573 !important;
+}
+
+.bg-info {
+    background-color: #7CC7E6 !important;
+}
+
+/**
+ * Slide bar
+ */
+#sidenav-main .nav-link {
+    transition: border .5s, border-radius .5s;
+}
+
+#sidenav-main .nav-link.active {
+    background: #7cc7e6 !important;
+    border: 1px solid #fff !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    color: white;
+    margin: 5px .5rem;
+    border-radius: .375rem;
+    box-shadow: rgba(45, 45, 45, 0.05) 0 2px 2px, rgba(49, 49, 49, 0.05) 0 4px 4px, rgba(42, 42, 42, 0.05) 0 8px 8px, rgba(32, 32, 32, 0.05) 0 16px 16px, rgba(49, 49, 49, 0.05) 0 32px 32px, rgba(35, 35, 35, 0.05) 0 64px 64px;
+}
+
+.g-sidenav-hidden .sidenav-header {
+    background-color: transparent;
+}
+
+.g-sidenav-show .sidenav-header {
+    background-image: url("https://one-key.test/images/sys/sys-6.gif");
+    background-size: 100%;
+}
+
+/**
+ * Progress bar
+ */
+
+.ok-progress {
+    z-index: 29111999;
+    position: fixed;
+    /*display: block;*/
+    width: 100%;
+    height: 5px;
+    overflow: hidden;
+    background-color: #fff !important;
+    box-shadow: none;
+    margin: 1px 0;
+    display: none;
+}
+
+.ok-progress .indeterminate {
+    background-color: #90caf9;
+}
+
+.ok-progress .indeterminate:before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    background-color: #90caf9;
+    animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+    will-change: left, right;
+}
+
+.ok-progress .indeterminate:after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    background-color: inherit;
+    animation: indeterminate 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+    animation-delay: 1.15s;
+    will-change: left, right;
+}
+
+@keyframes indeterminate {
+    0% {
+        right: 100%;
+        left: -35%
+    }
+
+    60% {
+        right: -90%;
+        left: 100%
+    }
+
+    100% {
+        right: -90%;
+        left: 100%
+    }
+}
+
+/**
+ * Modal
+ */
+.modal::-webkit-scrollbar {
+    width: 7px;
+}
+
+.modal::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+    border-radius: 10px;
+}

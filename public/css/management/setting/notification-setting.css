@@ -1,0 +1,11 @@
+.card button, .card h3 {
+    opacity: 0.8;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+}
+
+.card:hover .btn, .card:hover h3 {
+    opacity: 1;
+}
