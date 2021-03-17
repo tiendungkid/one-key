@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.auth')
 @section('title', 'Login')
 @section('head')
     <link rel="preconnect" href="https://fonts.gstatic.com">

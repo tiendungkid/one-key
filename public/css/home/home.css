@@ -211,10 +211,6 @@ body {
 }
 .ok-app .ok-right {
   background-color: #51c2a4;
-  background-image: url("https://one-key.test/images/home/right4.gif");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   height: 100%;
   flex: 0 50%;
   border-bottom-right-radius: 20px;

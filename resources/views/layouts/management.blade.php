@@ -18,7 +18,7 @@
     <link rel="stylesheet"
           href="{{asset('vendors/profile/assets/css/argon.css?v=1.2.0')}}">
     <link rel="stylesheet"
-          href="{{asset('vendors-assets/animate.css/animate.min.css')}}">
+          href="{{asset('vendors/animate.css/animate.min.css')}}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/management/ok-animation.css')}}">
