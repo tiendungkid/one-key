@@ -31,7 +31,10 @@
 
                 <div class="card border border-info">
                     <div class="card-header bg-transparent">
-                        <h3>Chrome extension integration</h3>
+                        <h3>
+                            <i class="fab fa-chrome"></i>
+                            Chrome extension integration
+                        </h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -39,11 +42,12 @@
                             <div class="input-group date">
                                 <input type="text" class="form-control" name="access_token" id="access_token">
                                 <span class="input-group-addon input-group-append">
-                                <button class="btn btn-outline-darker" type="button" id="button-addon2">
-                                    <span class="fa fa-calendar"></span>
-                                </button>
-                        </span>
+                                    <button class="btn btn-outline-darker" type="button" id="button-addon2">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </span>
                             </div>
+                            <small class="text-info">Lorem ipsum dolor sit amet</small>
                         </div>
                     </div>
                 </div>
