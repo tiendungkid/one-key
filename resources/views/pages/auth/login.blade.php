@@ -9,7 +9,6 @@
 @section('content')
     <div class="ok-app">
         <div class="ok-left">
-            <img src="{{asset('images/avatars/tiendungkid.png')}}" alt="Logo">
             <form action="{{route('login')}}" method="post">
                 @csrf
                 <h3>Welcome back</h3>
@@ -33,7 +32,7 @@
                         <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
                     </symbol>
                 </svg>
-                <button type="button">Sign in</button>
+                <button type="submit">Sign in</button>
             </form>
         </div>
         <div class="ok-right">

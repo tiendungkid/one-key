@@ -1,5 +1,5 @@
-@extends('layouts.management')
-@section('title', 'Overview')
+@extends('layouts.app')
+@section('title', 'Dashboard')
 @section('style')
 @endsection
 @section('content')
@@ -15,14 +15,13 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('management')}}">
+                                    <a href="{{route('dashboard')}}">
                                         <i class="fas fa-home"></i>
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a href="{{route('dashboard')}}">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page">Overview</li>
                             </ol>
                         </nav>
                     </div>
@@ -37,7 +36,7 @@
                                         <span class="h2 font-weight-bold text-success">{{$totalService}}</span>
                                     </div>
                                     <div class="col-auto">
-                                        <a href="{{route('service')}}"
+                                        <a href="{{route('dashboard')}}"
                                            class="icon icon-shape rounded-circle shadow border">
                                             <i class="fal fa-clouds text-primary"></i>
                                         </a>
@@ -55,7 +54,7 @@
                                         <span class="h2 font-weight-bold text-success">{{$totalAccount}}</span>
                                     </div>
                                     <div class="col-auto">
-                                        <a href="{{route('account')}}"
+                                        <a href="{{route('dashboard')}}"
                                            class="icon icon-shape border rounded-circle shadow">
                                             <i class="fal fa-fog text-cyan"></i>
                                         </a>

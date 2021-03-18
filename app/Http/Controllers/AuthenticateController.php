@@ -27,4 +27,14 @@ class AuthenticateController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
+
+    /**
+     * Logout
+     * @return RedirectResponse
+     */
+    public function logout(): RedirectResponse
+    {
+        auth()->logout();
+        return redirect()->route('login');
+    }
 }
