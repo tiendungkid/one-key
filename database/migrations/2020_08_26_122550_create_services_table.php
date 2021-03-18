@@ -10,10 +10,8 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
+            $table->string('name', 50)->unique();
             $table->string('home_link', 500)->nullable();
-            $table->string('logo_link', 500)->nullable();
-            $table->string('description', 500)->nullable();
             $table->timestamps();
         });
     }

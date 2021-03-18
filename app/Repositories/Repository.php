@@ -6,6 +6,7 @@ namespace App\Repositories;
 use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 abstract class Repository implements RepositoryInterface
 {
@@ -88,13 +89,13 @@ abstract class Repository implements RepositoryInterface
         return $this->model->where($conditional)->first();
     }
 
-    public function insert(array $records, bool $ignore_error = true): bool
+    public function insert(array $records, bool $ignore_error = true): int
     {
         try {
-            if ($ignore_error) return (bool)$this->model->insertOrIgnore($records);
-            return $this->model->insert($records);
+            if ($ignore_error) return $this->model->insertOrIgnore($records);
+            return (int)$this->model->insert($records);
         } catch (Exception) {
-            return false;
+            return 0;
         }
     }
 
@@ -121,4 +122,8 @@ abstract class Repository implements RepositoryInterface
         }
     }
 
+    public function allWithPaginate(int $limit): ?LengthAwarePaginator
+    {
+        return $this->model->paginate($limit);
+    }
 }

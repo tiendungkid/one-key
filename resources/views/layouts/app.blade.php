@@ -38,12 +38,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dashboard')}}" class="nav-link">
+                        <a href="{{route('services')}}" class="nav-link">
                             <span class="nav-link-text">Services</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dashboard')}}" class="nav-link">
+                        <a href="{{route('accounts')}}" class="nav-link">
                             <span class="nav-link-text">Accounts</span>
                         </a>
                     </li>
@@ -84,11 +84,6 @@
                                 <i class="sidenav-toggler-line"></i>
                             </div>
                         </div>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('dashboard')}}" class="nav-link">
-                            <i class="fal fa-home-lg-alt"></i>
-                        </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav align-items-center ml-auto ml-md-0">

@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface RepositoryInterface
 {
@@ -73,9 +74,9 @@ interface RepositoryInterface
     /**
      * @param array $records
      * @param bool $ignore_error
-     * @return bool
+     * @return int
      */
-    public function insert(array $records, bool $ignore_error = true): bool;
+    public function insert(array $records, bool $ignore_error = true): int;
 
     /**
      * @param array $conditional
@@ -97,4 +98,10 @@ interface RepositoryInterface
      * @return bool
      */
     public function deleteInIds(array $ids): bool;
+
+    /**
+     * @param int $limit
+     * @return LengthAwarePaginator|null
+     */
+    public function allWithPaginate(int $limit): ?LengthAwarePaginator;
 }

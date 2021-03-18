@@ -36,7 +36,7 @@
                                 <span class="h2 font-weight-bold text-success">{{$totalService}}</span>
                             </div>
                             <div class="col-auto">
-                                <a href="{{route('dashboard')}}"
+                                <a href="{{route('services')}}"
                                    class="icon icon-shape rounded-circle shadow border">
                                     <i class="fal fa-clouds text-primary"></i>
                                 </a>
@@ -54,7 +54,7 @@
                                 <span class="h2 font-weight-bold text-success">{{$totalAccount}}</span>
                             </div>
                             <div class="col-auto">
-                                <a href="{{route('dashboard')}}"
+                                <a href="{{route('accounts')}}"
                                    class="icon icon-shape border rounded-circle shadow">
                                     <i class="fal fa-fog text-cyan"></i>
                                 </a>
