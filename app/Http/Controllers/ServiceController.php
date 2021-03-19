@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\HasIdRequest;
 use App\Http\Requests\ImportServiceRequest;
 use App\Http\Requests\SearchRequest;
+use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Services\AppServices\AppService;
 use Illuminate\Contracts\Foundation\Application;
@@ -32,6 +33,29 @@ class ServiceController extends Controller
     {
         $services = $this->appService->appServiceRepository->allWithCountAccountCount();
         return view('pages.dashboard.service.service', compact('services'));
+    }
+
+    /**
+     * @return Factory|View|Application
+     */
+    public function new(): Factory|View|Application
+    {
+        return view('pages.dashboard.service.new');
+    }
+
+    /**
+     * @param StoreServiceRequest $request
+     * @return RedirectResponse
+     */
+    public function store(StoreServiceRequest $request): RedirectResponse
+    {
+        $status = $this->appService->appServiceRepository->create($request->only(['name', 'home_link']));
+        if (!$status) return back()->withErrors([
+            "Something wrong !"
+        ]);
+        return redirect()->route('services.detail', [
+            "id" => $status->id
+        ]);
     }
 
     /**
@@ -77,6 +101,16 @@ class ServiceController extends Controller
         return back()->with([
             "updated" => $status
         ]);
+    }
+
+    /**
+     * @param HasIdRequest $request
+     * @return RedirectResponse
+     */
+    public function delete(HasIdRequest $request): RedirectResponse
+    {
+        $status = $this->appService->appServiceRepository->delete($request->id);
+        return redirect()->route('services', compact('status'));
     }
 
     /**

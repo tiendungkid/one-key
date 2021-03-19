@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Services')
+@section('title', 'Accounts')
 @section('style')
 @endsection
 @section('content')
@@ -16,32 +16,10 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('services')}}">Service</a>
+                                    <a href="{{route('services')}}">All account of ({{ $service->name }})</a>
                                 </li>
                             </ol>
                         </nav>
-                    </div>
-                    <div class="col-lg-6 col-5 text-right">
-                        <a href="{{route('services.new')}}" class="btn btn-sm btn-neutral">
-                            New
-                        </a>
-                        <a href="{{route('services.export')}}" class="btn btn-sm btn-neutral" target="_blank">
-                            Export
-                        </a>
-                        <a href="{{route('services.import')}}" class="btn btn-sm btn-neutral">
-                            Import
-                        </a>
-                    </div>
-                </div>
-                <div class="row justify-content-end">
-                    <div class="col-md-2">
-                        <form action="{{ route('services.search') }}" method="get">
-                            <label class="w-100">
-                                <input type="search" name="query" placeholder="Type to search"
-                                       class="form-control form-control-sm"
-                                       value="{{ isset($query) ? $query : null }}">
-                            </label>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -49,16 +27,20 @@
     </div>
     <div class="container mt-5">
         <div class="row">
-            @foreach($services as $service)
+            @foreach($accounts as $account)
                 <div class="col-md-4">
-                    <a href="{{ route('services.detail', ['id' => $service->id ]) }}">
+                    <a href="{{ route('accounts.detail', ['id' => $account->id ]) }}">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">
-                                            {{ $service->name }}
-                                            <span>( {{ $service->accounts_count }} )</span>
+                                        <h5>Account</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title text-muted mb-0">
+                                            {{ $account->name }}
                                         </h5>
                                     </div>
                                 </div>
@@ -70,7 +52,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
-                {{ $services->links() }}
+                {{ $accounts->links() }}
             </div>
         </div>
     </div>

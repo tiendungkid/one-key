@@ -130,6 +130,7 @@
 </body>
 {{--Argon core--}}
 <script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
+@yield('script-plugin')
 <script src="{{asset('vendors/argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('vendors/argon/vendor/js-cookie/js.cookie.js')}}"></script>
 <script src="{{asset('vendors/argon/vendor/jquery.scrollbar/jquery.scrollbar.min.js')}}"></script>

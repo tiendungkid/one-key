@@ -11,14 +11,12 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('service_id');
-            $table->string('user_name');
+            $table->string('name');
             $table->string('password');
-            $table->string('salt');
-            $table->boolean('enable_2fa')->default(false);
             $table->string('two_fa_code')->nullable();
-            $table->json('note_attributes')->nullable();
-            $table->string('background', 20)->nullable();
-            $table->string('descriptions')->nullable();
+            $table->json('attributes')->nullable();
+            $table->string('color', 20)->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('service_id')
                 ->references('id')

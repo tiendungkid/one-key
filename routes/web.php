@@ -23,10 +23,20 @@ Route::middleware(['auth'])->group(function () {
         Route::get('detail/{id}', [ServiceController::class, 'detail'])->name('services.detail');
         Route::match(['get', 'post'], 'import', [ServiceController::class, 'import'])->name('services.import');
         Route::get('export', [ServiceController::class, 'export'])->name('services.export');
+        Route::get('new', [ServiceController::class, 'new'])->name('services.new');
+        Route::post('store', [ServiceController::class, 'store'])->name('services.store');
         Route::post('update', [ServiceController::class, 'update'])->name('services.update');
         Route::get('search', [ServiceController::class, 'search'])->name('services.search');
+        Route::post('delete', [ServiceController::class, 'delete'])->name('services.delete');
     });
     Route::prefix('accounts')->group(function () {
         Route::get('/', [AccountController::class, 'show'])->name('accounts');
+        Route::get('detail/{id}', [AccountController::class, 'detail'])->name('accounts.detail');
+        Route::get('new/{id}', [AccountController::class, 'new'])->name('accounts.new');
+        Route::get('list/{id}', [AccountController::class, 'list'])->name('accounts.list');
+        Route::post('store', [AccountController::class, 'store'])->name('accounts.store');
+        Route::post('update', [AccountController::class, 'update'])->name('accounts.update');
+        Route::match(['get', 'post'], 'import', [AccountController::class, 'import'])->name('accounts.import');
+        Route::get('export', [AccountController::class, 'export'])->name('accounts.export');
     });
 });

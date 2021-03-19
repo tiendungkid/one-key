@@ -21,6 +21,16 @@
                             </ol>
                         </nav>
                     </div>
+                    <div class="ml-auto">
+                        <a href="{{route('accounts.export')}}" class="btn btn-sm btn-neutral" target="_blank">
+                            Export
+                        </a>
+                    </div>
+                    <div class="mx-3">
+                        <a href="{{route('accounts.import')}}" class="btn btn-sm btn-neutral">
+                            Import
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

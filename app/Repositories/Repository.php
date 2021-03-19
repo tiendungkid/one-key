@@ -42,7 +42,8 @@ abstract class Repository implements RepositoryInterface
     {
         try {
             return $this->model->create($attributes);
-        } catch (Exception) {
+        } catch (Exception $exception) {
+            logger()->error("Create account error with message: {$exception->getMessage()}");
             return false;
         }
     }
