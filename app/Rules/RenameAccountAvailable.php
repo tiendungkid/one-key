@@ -5,15 +5,19 @@ namespace App\Rules;
 use App\Services\AppServices\AppService;
 use Illuminate\Contracts\Validation\Rule;
 
-class UniqueAccountName implements Rule
+class RenameAccountAvailable implements Rule
 {
     protected AppService $appService;
 
     /**
-     * UniqueAccountName constructor.
+     * Create a new rule instance.
      * @param int $service_id
+     * @param int $account_id
      */
-    public function __construct(protected int $service_id)
+    public function __construct(
+        protected int $service_id,
+        protected int $account_id
+    )
     {
         $this->appService = app(AppService::class);
     }
@@ -28,7 +32,7 @@ class UniqueAccountName implements Rule
     {
         $service = $this->appService->appServiceRepository->find($this->service_id);
         if (!$service) return false;
-        $account = $service->accounts()->whereName($value)->first();
+        $account = $service->accounts()->whereNotIn('id', [$this->account_id])->whereName($value)->first();
         return !(bool)$account;
     }
 

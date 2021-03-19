@@ -16,4 +16,9 @@ interface AccountService
      * @param AccountRepository $accountRepository
      */
     public function __construct(AccountRepository $accountRepository);
+
+    /**
+     * @return string
+     */
+    public function export(): string;
 }

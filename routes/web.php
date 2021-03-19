@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('list/{id}', [AccountController::class, 'list'])->name('accounts.list');
         Route::post('store', [AccountController::class, 'store'])->name('accounts.store');
         Route::post('update', [AccountController::class, 'update'])->name('accounts.update');
+        Route::post('delete', [AccountController::class, 'delete'])->name('accounts.delete');
         Route::match(['get', 'post'], 'import', [AccountController::class, 'import'])->name('accounts.import');
         Route::get('export', [AccountController::class, 'export'])->name('accounts.export');
     });

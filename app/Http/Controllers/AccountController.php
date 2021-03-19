@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HasIdRequest;
 use App\Http\Requests\StoreAccountRequest;
+use App\Http\Requests\UpdateAccountRequest;
 use App\Services\AccountService\AccountService;
 use App\Services\AppServices\AppService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AccountController extends Controller
 {
+    protected array $requestOnly = ['name', 'password', 'two_fa_code', 'color', 'note_attributes', 'description', 'service_id'];
+
     /**
      * AccountController constructor.
      * @param AccountService $accountService
@@ -47,7 +51,7 @@ class AccountController extends Controller
      */
     public function store(StoreAccountRequest $request): Factory|View|Application|RedirectResponse
     {
-        $attributes = $request->only(['name', 'password', 'two_fa_code', 'color', 'note_attributes', 'description', 'service_id']);
+        $attributes = $request->only($this->requestOnly);
         $account = $this->accountService->accountRepository->create($attributes);
         if (!$account) return back()->withErrors(["Something wrong !"]);
         return redirect()->route('accounts.detail', ['id' => $account->id]);
@@ -77,9 +81,32 @@ class AccountController extends Controller
         return view('pages.dashboard.account.accounts', compact('accounts', 'service'));
     }
 
-    public function update()
+    /**
+     * @param UpdateAccountRequest $request
+     * @return RedirectResponse
+     */
+    public function update(UpdateAccountRequest $request): RedirectResponse
     {
+        $status = $this->accountService->accountRepository->update($request->id, $request->only($this->requestOnly));
+        if (!$status) return back()->withErrors([
+            "Something wrong !"
+        ]);
+        return back();
+    }
 
+    /**
+     * @param HasIdRequest $request
+     * @return RedirectResponse
+     */
+    public function delete(HasIdRequest $request): RedirectResponse
+    {
+        $status = $this->accountService->accountRepository->delete((int)$request->id);
+        if (!$status) return back()->withErrors(['Something wrong !']);
+        else {
+            return $request->has('service_id') ?
+                redirect()->route('accounts.list', ['id' => $request->service_id]) :
+                redirect()->route('accounts');
+        }
     }
 
     public function import()
@@ -87,8 +114,12 @@ class AccountController extends Controller
 
     }
 
-    public function export()
+    /**
+     * @return BinaryFileResponse
+     */
+    public function export(): BinaryFileResponse
     {
-
+        $filePath = $this->accountService->export();
+        return response()->download($filePath)->deleteFileAfterSend();
     }
 }

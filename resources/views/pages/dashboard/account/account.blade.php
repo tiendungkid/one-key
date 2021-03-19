@@ -21,17 +21,31 @@
                             </ol>
                         </nav>
                     </div>
-                    <div class="ml-auto">
-                        <a href="{{route('accounts.export')}}" class="btn btn-sm btn-neutral" target="_blank">
-                            Export
-                        </a>
-                    </div>
-                    <div class="mx-3">
-                        <a href="{{route('accounts.import')}}" class="btn btn-sm btn-neutral">
-                            Import
-                        </a>
-                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <a href="{{route('accounts.export')}}" target="_blank">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-download text-primary"></i>
+                            Export
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{route('accounts.import')}}" target="_blank">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-file-export text-primary"></i>
+                            Import
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

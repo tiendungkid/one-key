@@ -15,8 +15,8 @@
                                         <i class="fas fa-home"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item">
-                                    <span> {{ $service->name }} Service</span>
+                                <li class="breadcrumb-item text-white">
+                                    <span>Detail {{ $service->name }} service</span>
                                 </li>
                             </ol>
                         </nav>
@@ -56,7 +56,7 @@
                 </form>
             </div>
             <div class="card-footer">
-                <a href="{{ route('accounts.new', ['id' => $service->id]) }}" class="btn btn-default">
+                <a href="{{ route('accounts.new', ['id' => $service->id]) }}" class="btn btn-secondary">
                     <i class="fas fa-plus"></i>
                     New account
                 </a>

@@ -34,8 +34,14 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('accounts.store') }}" method="post">
+                        <form action="{{ route('accounts.delete') }}" method="post" id="delete"
+                              onsubmit="return confirm('Are you sure you want !')">
                             @csrf
+                            <input type="hidden" name="service_id" value="{{ $account->service->id }}">
+                        </form>
+                        <form action="{{ route('accounts.update') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="service_id" value="{{ $account->service->id }}">
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" name="name" id="name" placeholder="Name" class="form-control"
@@ -78,8 +84,13 @@
                                 @endforeach
                             @endif
 
-                            <button type="submit" class="btn btn-primary" name="service_id" value="{{ $account->id }}">
-                                Create
+                            <button type="submit" class="btn btn-primary" name="id" value="{{ $account->id }}">
+                                Update
+                            </button>
+
+                            <button type="submit" form="delete" class="btn btn-danger" name="id"
+                                    value="{{ $account->id }}">
+                                Delete
                             </button>
                         </form>
                     </div>

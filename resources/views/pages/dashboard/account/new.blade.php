@@ -18,7 +18,9 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('accounts')}}">Account ({{ $service->name }})</a>
+                                    <a href="{{route('services.detail', ['id' => $service->id])}}">
+                                        New account for ({{ $service->name }}) service
+                                    </a>
                                 </li>
                             </ol>
                         </nav>
