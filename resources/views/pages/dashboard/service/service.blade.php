@@ -26,10 +26,21 @@
                             Export
                         </a>
                     </div>
-                    <div class="ml-3">
+                    <div class="mx-3">
                         <a href="{{route('services.import')}}" class="btn btn-sm btn-neutral">
                             Import
                         </a>
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-md-2">
+                        <form action="{{ route('services.search') }}" method="get">
+                            <label class="w-100">
+                                <input type="search" name="query" placeholder="Type to search"
+                                       class="form-control form-control-sm"
+                                       value="{{ isset($query) ? $query : null }}">
+                            </label>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -39,7 +50,7 @@
         <div class="row">
             @foreach($services as $service)
                 <div class="col-md-4">
-                    <a href="#">
+                    <a href="{{ route('services.detail', ['id' => $service->id ]) }}">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -55,6 +66,11 @@
                     </a>
                 </div>
             @endforeach
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                {{ $services->links() }}
+            </div>
         </div>
     </div>
 @endsection

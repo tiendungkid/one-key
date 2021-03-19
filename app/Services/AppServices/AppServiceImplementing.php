@@ -27,4 +27,19 @@ class AppServiceImplementing implements AppService
         }
         return $effected;
     }
+
+    public function exportToJsonFile(): ?string
+    {
+        try {
+            $service = $this->appServiceRepository->all(['name', 'home_link']);
+            $folderPath = storage_path('downloads/json');
+            File::isDirectory($folderPath) ?: File::makeDirectory($folderPath, 0777, true);
+            $filePath = "{$folderPath}/services.json";
+            if (!File::exists($filePath)) fopen($filePath, 'w');
+            File::put($filePath, $service->toJson(JSON_PRETTY_PRINT));
+            return $filePath;
+        } catch (Exception) {
+            return null;
+        }
+    }
 }

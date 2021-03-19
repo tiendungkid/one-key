@@ -13,9 +13,10 @@ interface RepositoryInterface
 
     /**
      * Get all
+     * @param array $selects
      * @return Collection
      */
-    public function all(): Collection;
+    public function all(array $selects): Collection;
 
     /**
      * Get one

@@ -20,8 +20,11 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::prefix('services')->group(function () {
         Route::get('/', [ServiceController::class, 'show'])->name('services');
+        Route::get('detail/{id}', [ServiceController::class, 'detail'])->name('services.detail');
         Route::match(['get', 'post'], 'import', [ServiceController::class, 'import'])->name('services.import');
-        Route::post('export', [ServiceController::class, 'export'])->name('services.export');
+        Route::get('export', [ServiceController::class, 'export'])->name('services.export');
+        Route::post('update', [ServiceController::class, 'update'])->name('services.update');
+        Route::get('search', [ServiceController::class, 'search'])->name('services.search');
     });
     Route::prefix('accounts')->group(function () {
         Route::get('/', [AccountController::class, 'show'])->name('accounts');

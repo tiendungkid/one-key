@@ -28,9 +28,9 @@ abstract class Repository implements RepositoryInterface
         }
     }
 
-    public function all(): Collection
+    public function all(array $selects): Collection
     {
-        return $this->model::all();
+        return $this->model::all($selects);
     }
 
     public function find($id): mixed
@@ -52,7 +52,7 @@ abstract class Repository implements RepositoryInterface
         $record = $this->find($id);
         if (!$record) return false;
         try {
-            return $record->update($record);
+            return $record->update($attributes);
         } catch (Exception) {
             return false;
         }

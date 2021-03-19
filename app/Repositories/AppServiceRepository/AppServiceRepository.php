@@ -15,4 +15,11 @@ interface AppServiceRepository extends RepositoryInterface
      * @return LengthAwarePaginator|null
      */
     public function allWithCountAccountCount(int $per_page = 20): ?LengthAwarePaginator;
+
+    /**
+     * @param string $query
+     * @param int $per_page
+     * @return LengthAwarePaginator|null
+     */
+    public function search(string $query, int $per_page = 20): ?LengthAwarePaginator;
 }

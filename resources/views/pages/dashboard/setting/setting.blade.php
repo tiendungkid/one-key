@@ -47,7 +47,7 @@
                                     </button>
                                 </span>
                             </div>
-                            <small class="text-info">Lorem ipsum dolor sit amet</small>
+                            <small class="text-muted">Lorem ipsum dolor sit amet</small>
                         </div>
                     </div>
                 </div>

@@ -22,4 +22,10 @@ interface AppService
      * @return int
      */
     public function importFromJsonFile(string $filePath): int;
+
+    /**
+     * Export to json file, file path returned
+     * @return string|null
+     */
+    public function exportToJsonFile(): ?string;
 }
