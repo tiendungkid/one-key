@@ -14,4 +14,10 @@ interface AccountRepository extends RepositoryInterface
      * @return LengthAwarePaginator|null
      */
     public function allAccountOfService(int $service_id, int $per_page = 20): ?LengthAwarePaginator;
+
+    /**
+     * (EMPTY) table
+     * @return bool
+     */
+    public function truncate(): bool;
 }

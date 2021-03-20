@@ -8,8 +8,8 @@ use Illuminate\Contracts\View\View;
 
 class SettingController extends Controller
 {
-    public function show(): Factory|View|Application
+    public function show(?string $access_token = null): Factory|View|Application
     {
-        return view('pages.dashboard.setting.setting');
+        return view('pages.dashboard.setting.setting', compact('access_token'));
     }
 }

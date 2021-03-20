@@ -22,4 +22,10 @@ interface AppServiceRepository extends RepositoryInterface
      * @return LengthAwarePaginator|null
      */
     public function search(string $query, int $per_page = 20): ?LengthAwarePaginator;
+
+    /**
+     * (EMPTY) table
+     * @return bool
+     */
+    public function truncate(): bool;
 }

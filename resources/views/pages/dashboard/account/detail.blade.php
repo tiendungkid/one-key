@@ -67,9 +67,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="note-attributes"></label>
-                                <input type="text" class="form-control" name="note_attributes" id="note-attributes"
-                                       placeholder="Notes" data-toggle="tags" value="{{ $account->note_attributes }}"/>
+                                <label for="attributes"></label>
+                                <input type="text" class="form-control" name="attributes" id="attributes"
+                                       placeholder="Notes" data-toggle="tags" value="{{ $account->attributes }}"/>
                             </div>
 
                             <div class="form-group">

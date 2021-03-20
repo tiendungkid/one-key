@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\HasIdRequest;
+use App\Http\Requests\ImportAccountRequest;
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Services\AccountService\AccountService;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AccountController extends Controller
 {
-    protected array $requestOnly = ['name', 'password', 'two_fa_code', 'color', 'note_attributes', 'description', 'service_id'];
+    protected array $requestOnly = ['name', 'password', 'two_fa_code', 'color', 'attributes', 'description', 'service_id'];
 
     /**
      * AccountController constructor.
@@ -109,9 +110,18 @@ class AccountController extends Controller
         }
     }
 
-    public function import()
+    /**
+     * @param ImportAccountRequest $request
+     * @return Application|Factory|View|RedirectResponse
+     */
+    public function import(ImportAccountRequest $request): Factory|View|Application|RedirectResponse
     {
-
+        if ($request->isMethod('GET')) return view('pages.dashboard.account.import');
+        $file = $request->file('file');
+        $effected = $this->accountService->import($file->getRealPath());
+        return redirect()->route("services")->with([
+            "import-status" => "imported {$effected} record !"
+        ]);
     }
 
     /**
@@ -120,6 +130,17 @@ class AccountController extends Controller
     public function export(): BinaryFileResponse
     {
         $filePath = $this->accountService->export();
+        return response()->download($filePath)->deleteFileAfterSend();
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function truncate(): BinaryFileResponse
+    {
+        $filePath = $this->accountService->export();
+        abort_if(!$filePath, 500);
+        $this->accountService->accountRepository->truncate();
         return response()->download($filePath)->deleteFileAfterSend();
     }
 }

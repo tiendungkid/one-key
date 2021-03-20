@@ -12,6 +12,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Schema;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ServiceController extends Controller
@@ -125,5 +126,16 @@ class ServiceController extends Controller
             "query" => $query
         ]);
         return view('pages.dashboard.service.service', compact('query', 'services'));
+    }
+
+    /**
+     * @return BinaryFileResponse
+     */
+    public function truncate(): BinaryFileResponse
+    {
+        $filePath = $this->appService->exportToJsonFile();
+        if (!$filePath) abort(500);
+        $this->appService->appServiceRepository->truncate();
+        return response()->download($filePath)->deleteFileAfterSend();
     }
 }

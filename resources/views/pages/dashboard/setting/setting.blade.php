@@ -40,14 +40,19 @@
                         <div class="form-group">
                             <label for="access_token">Access token</label>
                             <div class="input-group date">
-                                <input type="text" class="form-control" name="access_token" id="access_token">
+                                <input type="text" class="form-control border-default" name="access_token"
+                                       id="access_token"
+                                       value="{{ isset($access_token) ? $access_token : null }}" disabled>
                                 <span class="input-group-addon input-group-append">
                                     <button class="btn btn-outline-darker" type="button" id="button-addon2">
                                         <i class="fas fa-copy"></i>
                                     </button>
                                 </span>
                             </div>
-                            <small class="text-muted">Lorem ipsum dolor sit amet</small>
+                            <form action="{{ route('users.refresh-access-token') }}" method="post" class="mt-3">
+                                @csrf
+                                <button class="btn btn-outline-default">Generate | Refresh</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -76,7 +81,7 @@
                                         <span class="text-warning">all your accounts for these services</span>
                                     </small>
                                 </p>
-                                <form action="#" method="post"
+                                <form action="{{ route('services.truncate') }}" method="post"
                                       onsubmit="return confirm('Are you sure ? A file backup will be download !');">
                                     @csrf
                                     <button class="btn btn-outline-danger btn-sm">Delete all service</button>
@@ -89,7 +94,7 @@
                                         continuing
                                     </small>
                                 </p>
-                                <form action="#" method="post"
+                                <form action="{{ route('accounts.truncate') }}" method="post"
                                       onsubmit="return confirm('Are you sure ? A file backup will be download !');">
                                     @csrf
                                     <button class="btn btn-outline-danger btn-sm">Delete all account</button>

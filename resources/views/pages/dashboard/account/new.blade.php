@@ -59,8 +59,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="note-attributes" class="w-100 d-block">Tags (Optional)</label>
-                                <input type="text" class="form-control" name="note_attributes" id="note-attributes"
+                                <label for="attributes" class="w-100 d-block">Tags (Optional)</label>
+                                <input type="text" class="form-control" name="attributes" id="attributes"
                                        placeholder="Notes" data-toggle="tags"/>
                             </div>
 

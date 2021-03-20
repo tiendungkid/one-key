@@ -17,7 +17,15 @@ class Account extends Model
     public function setAttributesAttribute(?string $value)
     {
         $value = is_string($value) ? explode(',', $value) : [];
-        $this->attributes['note_attributes'] = json_encode(array_values($value));
+        $this->attributes['attributes'] = json_encode(array_values($value));
+    }
+
+    /**
+     * @return string
+     */
+    public function getAttributesAttribute(): string
+    {
+        return join(',', json_decode($this->attributes['attributes']));
     }
 
     /**

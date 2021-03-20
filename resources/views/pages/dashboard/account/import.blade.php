@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Accounts')
+@section('title', 'Import')
 @section('style')
 @endsection
 @section('content')
@@ -16,7 +16,7 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('accounts')}}">Account</a>
+                                    <a href="{{route('accounts')}}">Account import</a>
                                 </li>
                             </ol>
                         </nav>
@@ -27,25 +27,18 @@
     </div>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-4">
-                <a href="{{route('accounts.export')}}" target="_blank">
-                    <div class="card">
-                        <div class="card-body">
-                            <i class="fas fa-file-export text-primary"></i>
-                            Export
-                        </div>
+            <div class="col-md-6">
+                <form action="{{ route('accounts.import') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label class="form-control-label" for="file">Select file</label>
+                        <input type="file" name="file" class="form-control" id="file" placeholder="Select file"
+                               accept=".json">
                     </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="{{route('accounts.import')}}">
-                    <div class="card">
-                        <div class="card-body">
-                            <i class="fas fa-download text-primary"></i>
-                            Import
-                        </div>
-                    </div>
-                </a>
+                    <button class="btn btn-primary float-right" type="submit">
+                        Import accounts
+                    </button>
+                </form>
             </div>
         </div>
     </div>

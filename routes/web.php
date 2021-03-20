@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::match(['get', 'post'], 'login', [AuthenticateController::class, 'login'])->name('login');
@@ -14,6 +15,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [AppController::class, 'dashboard'])->name('dashboard');
     Route::prefix('profile')->group(function () {
         Route::get('/', [ProfileController::class, 'show'])->name('profile');
+    });
+    Route::prefix('users')->group(function () {
+        Route::post('refresh-access-token', [UserController::class, 'refreshAccessToken'])->name('users.refresh-access-token');
     });
     Route::prefix('setting')->group(function () {
         Route::get('/', [SettingController::class, 'show'])->name('setting');
@@ -28,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('update', [ServiceController::class, 'update'])->name('services.update');
         Route::get('search', [ServiceController::class, 'search'])->name('services.search');
         Route::post('delete', [ServiceController::class, 'delete'])->name('services.delete');
+        Route::post('truncate', [ServiceController::class, 'truncate'])->name('services.truncate');
     });
     Route::prefix('accounts')->group(function () {
         Route::get('/', [AccountController::class, 'show'])->name('accounts');
@@ -39,5 +44,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('delete', [AccountController::class, 'delete'])->name('accounts.delete');
         Route::match(['get', 'post'], 'import', [AccountController::class, 'import'])->name('accounts.import');
         Route::get('export', [AccountController::class, 'export'])->name('accounts.export');
+        Route::post('truncate', [AccountController::class, 'truncate'])->name('accounts.truncate');
     });
 });

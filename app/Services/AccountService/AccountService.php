@@ -21,4 +21,10 @@ interface AccountService
      * @return string
      */
     public function export(): string;
+
+    /**
+     * @param string $filePath
+     * @return int
+     */
+    public function import(string $filePath): int;
 }
