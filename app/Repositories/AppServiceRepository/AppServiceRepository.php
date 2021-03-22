@@ -5,6 +5,7 @@ namespace App\Repositories\AppServiceRepository;
 
 
 use App\Repositories\RepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 interface AppServiceRepository extends RepositoryInterface
@@ -22,6 +23,12 @@ interface AppServiceRepository extends RepositoryInterface
      * @return LengthAwarePaginator|null
      */
     public function search(string $query, int $per_page = 20): ?LengthAwarePaginator;
+
+    /**
+     * @param string $query
+     * @return Collection
+     */
+    public function searchAccountByServiceName(string $query): Collection;
 
     /**
      * (EMPTY) table

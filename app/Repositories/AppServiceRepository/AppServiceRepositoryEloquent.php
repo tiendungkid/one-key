@@ -4,6 +4,7 @@
 namespace App\Repositories\AppServiceRepository;
 
 
+use App\Models\Account;
 use App\Models\Service;
 use App\Repositories\Repository;
 use Exception;
@@ -40,5 +41,11 @@ class AppServiceRepositoryEloquent extends Repository implements AppServiceRepos
             logger()->error("Empty table error with message: {$exception->getMessage()}");
             return false;
         }
+    }
+
+    public function searchAccountByServiceName(string $query): Collection
+    {
+        $serviceIdList = $this->model->where("home_link", "LIKE", "%{$query}%")->get()->modelKeys();
+        return Account::whereServiceId($serviceIdList)->get();
     }
 }

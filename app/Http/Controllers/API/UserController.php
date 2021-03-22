@@ -9,10 +9,10 @@ use JetBrains\PhpStorm\ArrayShape;
 class UserController extends Controller
 {
     #[ArrayShape(["message" => "string"])]
-    public function test(): array
+    public function checkIsValidAccessToken(): array
     {
         return [
-            "message" => "Success"
+            "message" => "success"
         ];
     }
 }
