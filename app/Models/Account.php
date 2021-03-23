@@ -25,7 +25,7 @@ class Account extends Model
      */
     public function getAttributesAttribute(): string
     {
-        return join(',', json_decode($this->attributes['attributes']));
+        return join(',', is_array(json_decode($this->attributes['attributes'])) ? json_decode($this->attributes['attributes']) : []);
     }
 
     /**
