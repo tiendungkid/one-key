@@ -192,3 +192,10 @@ nav[role="navigation"] div:last-child div:last-child > :last-child svg {
     max-height: 25px;
     max-width: 25px;
 }
+
+/**
+ * Component
+ */
+.badge {
+    text-transform: none !important;
+}
