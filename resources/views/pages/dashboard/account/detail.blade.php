@@ -56,7 +56,7 @@
 
                             <div class="form-group">
                                 <label for="two_fa_code">2FA Code</label>
-                                <input type="text" name="two_fa_code" id="two_fa_code" placeholder="Name"
+                                <input type="text" name="two_fa_code" id="two_fa_code" placeholder="2FA Code"
                                        class="form-control" value="{{ $account->two_fa_code }}">
                             </div>
 
