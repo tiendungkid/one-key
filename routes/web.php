@@ -22,18 +22,24 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('setting')->group(function () {
         Route::get('/', [SettingController::class, 'show'])->name('setting');
     });
+    # ------------------
+    # Service routes
+    # ------------------
     Route::prefix('services')->group(function () {
-        Route::get('/', [ServiceController::class, 'show'])->name('services');
-        Route::get('detail/{id}', [ServiceController::class, 'detail'])->name('services.detail');
-        Route::match(['get', 'post'], 'import', [ServiceController::class, 'import'])->name('services.import');
-        Route::get('export', [ServiceController::class, 'export'])->name('services.export');
-        Route::get('new', [ServiceController::class, 'new'])->name('services.new');
-        Route::post('store', [ServiceController::class, 'store'])->name('services.store');
-        Route::post('update', [ServiceController::class, 'update'])->name('services.update');
-        Route::get('search', [ServiceController::class, 'search'])->name('services.search');
-        Route::post('delete', [ServiceController::class, 'delete'])->name('services.delete');
-        Route::post('truncate', [ServiceController::class, 'truncate'])->name('services.truncate');
+        Route::match(['get', 'post'], 'import', [ServiceController::class, 'import'])
+            ->name('services.import');
+        Route::get('export', [ServiceController::class, 'export'])
+            ->name('services.export');
+        Route::post('truncate', [ServiceController::class, 'truncate'])
+            ->name('services.truncate');
+        Route::get('datatable', [ServiceController::class, 'datatable'])
+            ->name('services.datatable');
     });
+    Route::resource('services', ServiceController::class)
+        ->only(['index', 'create', 'store', 'show', 'update', 'destroy']);
+    # ------------------
+    # Account routes
+    # ------------------
     Route::prefix('accounts')->group(function () {
         Route::get('/', [AccountController::class, 'show'])->name('accounts');
         Route::get('detail/{id}', [AccountController::class, 'detail'])->name('accounts.detail');

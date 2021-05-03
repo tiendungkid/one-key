@@ -15,8 +15,11 @@
                                         <i class="fas fa-home"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item text-white">
-                                    <span>Detail {{ $service->name }} service</span>
+                                <li class="breadcrumb-item">
+                                    <a href="{{route('services.index')}}">Services</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <span>{{ $service->name }}</span>
                                 </li>
                             </ol>
                         </nav>
@@ -28,13 +31,14 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('services.delete') }}" method="post" id="delete"
+                <form action="{{ route('services.destroy', $service->id) }}" method="post" id="delete"
                       onsubmit="return confirm('Are you sure ?')">
+                    @method('DELETE ')
                     @csrf
                 </form>
-                <form action="{{ route('services.update') }}" method="post">
+                <form action="{{ route('services.update', $service->id) }}" method="post">
+                    @method('PUT')
                     @csrf
-                    <input type="hidden" name="id" value="{{ $service->id }}">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" name="name" value="{{ $service->name }}" id="name">
                     <label for="home_link" class="mt-3">Home link</label>

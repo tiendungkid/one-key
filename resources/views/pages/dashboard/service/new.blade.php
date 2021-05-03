@@ -16,7 +16,10 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <span>New Service</span>
+                                    <a href="{{route('services.index')}}">Services</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    <span>New</span>
                                 </li>
                             </ol>
                         </nav>

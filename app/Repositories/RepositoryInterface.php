@@ -4,48 +4,109 @@
 namespace App\Repositories;
 
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 interface RepositoryInterface
 {
-
     /**
-     * Get all
-     * @param array $selects
+     * @param array $select
      * @return Collection
      */
-    public function all(array $selects): Collection;
+    public function getAll(array $select = ['*']): Collection;
 
     /**
-     * Get one
-     * @param $id
+     * @param int $id
+     * @return Model|null
+     */
+    public function find(int $id): Model|null;
+
+    /**
+     * @param string $column
+     * @param mixed $value
      * @return mixed
      */
-    public function find($id): mixed;
+    public function findBy(string $column, mixed $value): mixed;
 
     /**
-     * Create
+     * @param int $id
+     * @return mixed
+     */
+    public function findOrFail(int $id): mixed;
+
+    /**
+     * @param int $id
+     * @param array $relationships
+     * @return mixed
+     */
+    public function findWith(int $id, array $relationships = []): mixed;
+
+    /**
      * @param array $attributes
      * @return mixed
      */
-    public function create($attributes = []): mixed;
+    public function create(array $attributes): mixed;
 
     /**
-     * Update
-     * @param $id
-     * @param array $attributes
-     * @return mixed
+     * @param array $records
+     * @param bool $ignore_error
+     * @return int
      */
-    public function update($id, $attributes = []): mixed;
+    public function insert(array $records, bool $ignore_error = true): int;
 
     /**
-     * Delete
-     * @param $id
+     * @param int $id
+     * @param array $attributes
      * @return bool
      */
-    public function delete($id): bool;
+    public function update(int $id, array $attributes): bool;
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool;
+
+    /**
+     * @param string $select
+     * @return Builder
+     */
+    public function select($select = '*'): Builder;
+
+    /**
+     * @param array $condition
+     * @return Builder|Model
+     */
+    public function findByCondition(array $condition): Builder|Model;
+
+    /**
+     * @param array $ids
+     * @param array $attributes
+     * @return int
+     */
+    public function updateInIds(array $ids, array $attributes): int;
+
+    /**
+     * @param array $ids
+     * @return int
+     */
+    public function deleteInIds(array $ids): int;
+
+    /**
+     * @param array $maps
+     * @param array $attributes
+     * @return Model
+     */
+    public function updateOrCreate(array $maps, array $attributes): Model;
+
+    /**
+     * @param array $maps
+     * @param array $attributes
+     * @return Model
+     */
+    public function firstOrCreate(array $maps, array $attributes): Model;
 
     /**
      * Total record of table
@@ -58,51 +119,4 @@ interface RepositoryInterface
      * @return int
      */
     public function countByConditional(array $conditional): int;
-
-    /**
-     * @param array $conditional
-     * @param array $attributes
-     * @return mixed
-     */
-    public function firstOrCreate(array $conditional, array $attributes): mixed;
-
-    /**
-     * @param array $conditional
-     * @return mixed
-     */
-    public function findByConditional(array $conditional): mixed;
-
-    /**
-     * @param array $records
-     * @param bool $ignore_error
-     * @return int
-     */
-    public function insert(array $records, bool $ignore_error = true): int;
-
-    /**
-     * @param array $conditional
-     * @param $attributes
-     * @return bool
-     */
-    public function updateOrCreate(array $conditional, $attributes): bool;
-
-    /**
-     *
-     * @param array $ids
-     * @param array $attributes
-     * @return int
-     */
-    public function updateInIds(array $ids, array $attributes): int;
-
-    /**
-     * @param array $ids
-     * @return bool
-     */
-    public function deleteInIds(array $ids): bool;
-
-    /**
-     * @param int $limit
-     * @return LengthAwarePaginator|null
-     */
-    public function allWithPaginate(int $limit): ?LengthAwarePaginator;
 }

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('vendors/argon/css/argon.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/fontawesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/app/app.css')}}">
+    @yield('head')
     @yield('style')
 </head>
 
@@ -34,11 +35,11 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('dashboard')}}">
-                            <span class="nav-link-text">Dashboards</span>
+                            <span class="nav-link-text">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('services')}}" class="nav-link">
+                        <a href="{{route('services.index')}}" class="nav-link">
                             <span class="nav-link-text">Services</span>
                         </a>
                     </li>

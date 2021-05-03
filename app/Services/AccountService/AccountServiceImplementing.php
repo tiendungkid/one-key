@@ -16,8 +16,9 @@ class AccountServiceImplementing implements AccountService
 
     public function export(): string
     {
-        $account = $this->accountRepository
-            ->all(['name', 'password', 'two_fa_code', 'color', 'attributes', 'description', 'service_id']);
+        $account = $this
+            ->accountRepository
+            ->getAll(['name', 'password', 'two_fa_code', 'color', 'attributes', 'description', 'service_id']);
         $folderPath = storage_path('downloads/json');
         File::isDirectory($folderPath) ?: File::makeDirectory($folderPath, 0777, true);
         $filePath = "{$folderPath}/accounts.json";

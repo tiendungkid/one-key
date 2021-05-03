@@ -4,90 +4,64 @@
 namespace App\Repositories;
 
 use Exception;
-use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class Repository implements RepositoryInterface
 {
     protected mixed $model;
 
+    /**
+     * BaseRepository constructor.
+     * Set model
+     */
     public function __construct()
     {
         $this->setModel();
     }
 
+    /**
+     * @return Model
+     */
     abstract public function getModel(): string;
 
+    /**
+     * Set Model
+     */
     public function setModel()
     {
-        try {
-            $this->model = app()->make($this->getModel());
-        } catch (BindingResolutionException $e) {
-            logger()->error("> Set model error (Binding) {$e->getMessage()}");
-        }
+        $this->model = app($this->getModel());
     }
 
-    public function all(array $selects): Collection
+    public function getAll(array $select = ['*']): Collection
     {
-        return $this->model::all($selects);
+        return $this->model::all($select);
     }
 
-    public function find($id): mixed
+    public function findOrFail(int $id): mixed
+    {
+        return $this->model->findOrFail($id);
+    }
+
+    public function find(int $id): Model|null
     {
         return $this->model->find($id);
     }
 
-    public function create($attributes = []): mixed
+    public function findBy(string $column, mixed $value): mixed
     {
-        try {
-            return $this->model->create($attributes);
-        } catch (Exception $exception) {
-            logger()->error("Create account error with message: {$exception->getMessage()}");
-            return false;
-        }
+        return $this->model->where($column, '=', $value)->first();
     }
 
-    public function update($id, $attributes = []): mixed
+    public function findWith(int $id, array $relationships = []): mixed
     {
-        $record = $this->find($id);
-        if (!$record) return false;
-        try {
-            return $record->update($attributes);
-        } catch (Exception) {
-            return false;
-        }
+        return $this->model->whereId($id)->with($relationships)->first();
     }
 
-    public function delete($id): bool
+    public function create(array $attributes): mixed
     {
-        $record = $this->find($id);
-        if (!$record) return false;
-        try {
-            return $record->delete();
-        } catch (Exception) {
-            return false;
-        }
-    }
-
-    public function countAll(): int
-    {
-        return $this->countByConditional([]);
-    }
-
-    public function countByConditional(array $conditional): int
-    {
-        return $this->model->where($conditional)->count();
-    }
-
-    public function firstOrCreate(array $conditional, array $attributes): mixed
-    {
-        return $this->model->firstOrCreate($conditional, $attributes);
-    }
-
-    public function findByConditional(array $conditional): mixed
-    {
-        return $this->model->where($conditional)->first();
+        return $this->model->create($attributes);
     }
 
     public function insert(array $records, bool $ignore_error = true): int
@@ -100,31 +74,62 @@ abstract class Repository implements RepositoryInterface
         }
     }
 
-    public function updateOrCreate(array $conditional, $attributes): bool
+    public function update(int $id, array $attributes): bool
     {
+        $record = $this->find($id);
+        if (!$record) return false;
+        return (bool)$record->update($attributes);
+    }
+
+    public function delete(int $id): bool
+    {
+        $record = $this->find($id);
+        if (!$record) return false;
         try {
-            return $this->model->where($conditional)->update($attributes);
+            return (bool)$record->delete();
         } catch (Exception) {
             return false;
         }
+    }
+
+    public function select($select = '*'): Builder
+    {
+        return $this->model->select($select);
+    }
+
+    public function findByCondition(array $condition): Builder|Model
+    {
+        return $this->model->where($condition)->first();
     }
 
     public function updateInIds(array $ids, array $attributes): int
     {
-        return $this->model->whereId($ids)->update($attributes);
+
+        return $this->model->whereIn('id', $ids)->update($attributes);
     }
 
-    public function deleteInIds(array $ids): bool
+    public function deleteInIds(array $ids): int
     {
-        try {
-            return $this->model->whereId($ids)->delete();
-        } catch (Exception) {
-            return false;
-        }
+        return $this->model->whereIn('id', $ids)->delete();
     }
 
-    public function allWithPaginate(int $limit): ?LengthAwarePaginator
+    public function updateOrCreate(array $maps, array $attributes): Model
     {
-        return $this->model->paginate($limit);
+        return $this->model->updateOrCreate($maps, $attributes);
+    }
+
+    public function firstOrCreate(array $maps, array $attributes): Model
+    {
+        return $this->model->firstOrCreate($maps, $attributes);
+    }
+
+    public function countAll(): int
+    {
+        return $this->countByConditional([]);
+    }
+
+    public function countByConditional(array $conditional): int
+    {
+        return $this->model->where($conditional)->count();
     }
 }

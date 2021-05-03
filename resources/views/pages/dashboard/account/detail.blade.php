@@ -18,9 +18,15 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('services.detail', ['id' => $account->service->id]) }}">
-                                        Account ({{ $account->name }}) ({{ $account->service->name }})
+                                    <a href="{{route('accounts')}}">Account</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('services.show', $account->service->id) }}">
+                                        {{ $account->service->name }}
                                     </a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    <span>{{ $account->name }}</span>
                                 </li>
                             </ol>
                         </nav>

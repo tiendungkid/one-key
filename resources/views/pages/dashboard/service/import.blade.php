@@ -16,7 +16,10 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('services')}}">Service Import</a>
+                                    <a href="{{route('services.index')}}">Services</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    <span>Import</span>
                                 </li>
                             </ol>
                         </nav>
@@ -39,6 +42,19 @@
                     <button class="btn btn-primary float-right" type="submit">
                         Import
                     </button>
+                    @if(session()->has('effected'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <span class="alert-icon">
+                                <i class="fas fa-long-arrow-alt-down"></i>
+                            </span>
+                            <span class="alert-text">
+                                Imported {{ session('effected') }} records !
+                            </span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    @endif
                 </form>
             </div>
         </div>
