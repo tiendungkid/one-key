@@ -28,10 +28,10 @@ class StoreServiceRequest extends FormRequest
             "name" => [
                 "required",
                 "min:2",
-                "max:20",
+                "max:50",
                 Rule::unique("services", 'name')
             ],
-            "home_link" => "required|min:2|max:20"
+            "home_link" => "required|string|min:2|max:255|starts_with:http"
         ];
     }
 }

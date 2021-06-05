@@ -56,9 +56,7 @@ class ServiceController extends Controller
         if (!$status) return back()->withErrors([
             "Something wrong !"
         ]);
-        return redirect()->route('services.detail', [
-            "id" => $status->id
-        ]);
+        return redirect()->route('services.show', $status->id);
     }
 
     /**
