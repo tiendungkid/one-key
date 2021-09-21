@@ -18,15 +18,15 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('accounts')}}">Account</a>
+                                    <a href="{{route('services.index')}}">Services</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('services.show', $account->service->id) }}">
-                                        {{ $account->service->name }}
+                                    <a href="{{route('services.show', $service->id)}}">
+                                        {{ $service->name }}
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    <span>{{ $account->name }}</span>
+                                    <span>New</span>
                                 </li>
                             </ol>
                         </nav>
@@ -37,51 +37,46 @@
     </div>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-10 col-xs-12">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Create account for (<b>{{ $service->name }}</b>)</div>
+                    </div>
                     <div class="card-body">
-                        <form action="{{ route('accounts.delete') }}" method="post" id="delete"
-                              onsubmit="return confirm('Are you sure you want !')">
+                        <form action="{{ route('accounts.store') }}" method="post">
                             @csrf
-                            <input type="hidden" name="service_id" value="{{ $account->service->id }}">
-                        </form>
-                        <form action="{{ route('accounts.update') }}" method="post">
-                            @csrf
-                            <input type="hidden" name="service_id" value="{{ $account->service->id }}">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" id="name" placeholder="Name" class="form-control"
-                                       value="{{ $account->name }}">
+                                <input type="text" name="name" id="name" placeholder="Name" class="form-control">
                             </div>
 
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" id="password" placeholder="Password"
-                                       class="form-control" value="{{ $account->password }}">
+                                       class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <label for="two_fa_code">2FA Code</label>
+                                <label for="two_fa_code">2FA Code (Optional)</label>
                                 <input type="text" name="two_fa_code" id="two_fa_code" placeholder="2FA Code"
-                                       class="form-control" value="{{ $account->two_fa_code }}">
+                                       class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <label for="color">Color label</label>
-                                <input type="color" name="color" id="color" class="form-control"
-                                       value="{{ $account->color }}">
+                                <label for="color">Color label (Optional)</label>
+                                <input type="color" name="color" id="color" class="form-control" value="#7cc7e6">
                             </div>
 
                             <div class="form-group">
-                                <label for="attributes"></label>
+                                <label for="attributes" class="w-100 d-block">Tags (Optional)</label>
                                 <input type="text" class="form-control" name="attributes" id="attributes"
-                                       placeholder="Notes" data-toggle="tags" value="{{ $account->attributes }}"/>
+                                       placeholder="Notes" data-toggle="tags"/>
                             </div>
 
                             <div class="form-group">
-                                <label class="form-control-label" for="description">Description</label>
+                                <label class="form-control-label" for="description">Description (Optional)</label>
                                 <textarea name="description" class="form-control" id="description" rows="3"
-                                          resize="none">{{ $account->description }}</textarea>
+                                          resize="none"></textarea>
                             </div>
 
                             @if($errors->any())
@@ -90,13 +85,8 @@
                                 @endforeach
                             @endif
 
-                            <button type="submit" class="btn btn-primary" name="id" value="{{ $account->id }}">
-                                Update
-                            </button>
-
-                            <button type="submit" form="delete" class="btn btn-danger" name="id"
-                                    value="{{ $account->id }}">
-                                Delete
+                            <button type="submit" class="btn btn-primary" name="service_id" value="{{ $service->id }}">
+                                Create
                             </button>
                         </form>
                     </div>

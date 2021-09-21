@@ -37,8 +37,8 @@
         <div class="row">
             @foreach($accounts as $account)
                 <div class="col-md-4">
-                    <a href="{{ route('accounts.detail', ['id' => $account->id ]) }}">
-                        <div class="card">
+                    <a href="{{ route('accounts.show', $account->id) }}">
+                        <div class="card border" style="border-color: {{ $account->color }} !important;">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">

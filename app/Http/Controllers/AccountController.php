@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\HasIdRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\HasServiceIdRequest;
 use App\Http\Requests\ImportAccountRequest;
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
@@ -12,102 +13,93 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AccountController extends Controller
 {
-    protected array $requestOnly = ['name', 'password', 'two_fa_code', 'color', 'attributes', 'description', 'service_id'];
-
     /**
-     * AccountController constructor.
      * @param AccountService $accountService
-     */
-    public function __construct(protected AccountService $accountService)
-    {
-    }
-
-    /**
-     * @return Factory|View|Application
-     */
-    public function show(): Factory|View|Application
-    {
-        return view('pages.dashboard.account.account');
-    }
-
-    /**
-     * @param HasIdRequest $request
      * @param AppService $appService
-     * @return Factory|View|Application
      */
-    public function new(HasIdRequest $request, AppService $appService): Factory|View|Application
+    public function __construct(
+        protected AccountService $accountService,
+        protected AppService     $appService
+    )
     {
-        $service = $appService->appServiceRepository->find($request->id);
-        abort_if(!$service, 404);
-        return view('pages.dashboard.account.new', compact('service'));
+    }
+
+    public function index(): Application|Factory|View
+    {
+        return view('pages.dashboard.account.index');
+    }
+
+    public function create(HasServiceIdRequest $request)
+    {
+        $service = $this->appService->appServiceRepository->findOrFail($request->id);
+        return view('pages.dashboard.account.create', compact('service'));
     }
 
     /**
      * @param StoreAccountRequest $request
-     * @return Factory|View|Application|RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(StoreAccountRequest $request): Factory|View|Application|RedirectResponse
+    public function store(StoreAccountRequest $request): RedirectResponse
     {
-        $attributes = $request->only($this->requestOnly);
-        $account = $this->accountService->accountRepository->create($attributes);
+        $account = $this->accountService->accountRepository->create($request->all());
         if (!$account) return back()->withErrors(["Something wrong !"]);
-        return redirect()->route('accounts.detail', ['id' => $account->id]);
+        return redirect()->route('accounts.show', $account->id);
     }
 
     /**
-     * @param HasIdRequest $request
-     * @return Factory|View|Application
+     * @param int $id
+     * @return Application|Factory|View
      */
-    public function detail(HasIdRequest $request): Factory|View|Application
+    public function show(int $id): View|Factory|Application
     {
-        $account = $this->accountService->accountRepository->find($request->id);
-        abort_if(!$account, 404);
-        return view('pages.dashboard.account.detail', compact('account'));
-    }
-
-    /**
-     * @param HasIdRequest $request
-     * @param AppService $appService
-     * @return Factory|View|Application
-     */
-    public function list(HasIdRequest $request, AppService $appService): Factory|View|Application
-    {
-        $service = $appService->appServiceRepository->find($request->id);
-        abort_if(!$service, 404);
-        $accounts = $this->accountService->accountRepository->allAccountOfService($request->id);
-        return view('pages.dashboard.account.accounts', compact('accounts', 'service'));
+        $account = $this->accountService->accountRepository->find($id);
+        return view('pages.dashboard.account.show', compact('account'));
     }
 
     /**
      * @param UpdateAccountRequest $request
+     * @param int $id
      * @return RedirectResponse
      */
-    public function update(UpdateAccountRequest $request): RedirectResponse
+    public function update(UpdateAccountRequest $request, int $id): RedirectResponse
     {
-        $status = $this->accountService->accountRepository->update($request->id, $request->only($this->requestOnly));
+        $status = $this->accountService->accountRepository->update($id, $request->all());
         if (!$status) return back()->withErrors([
             "Something wrong !"
         ]);
+        session()->flash('updated', true);
         return back();
     }
 
     /**
-     * @param HasIdRequest $request
+     * @param int $id
+     * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(HasIdRequest $request): RedirectResponse
+    public function destroy(int $id, Request $request): RedirectResponse
     {
-        $status = $this->accountService->accountRepository->delete((int)$request->id);
+        $status = $this->accountService->accountRepository->delete($id);
         if (!$status) return back()->withErrors(['Something wrong !']);
         else {
             return $request->has('service_id') ?
                 redirect()->route('accounts.list', ['id' => $request->service_id]) :
-                redirect()->route('accounts');
+                redirect()->route('services.index');
         }
+    }
+
+    /**
+     * @return RedirectResponse
+     */
+    public function truncate(): RedirectResponse
+    {
+        $this->accountService->accountRepository->truncate();
+        return back();
     }
 
     /**
@@ -116,12 +108,13 @@ class AccountController extends Controller
      */
     public function import(ImportAccountRequest $request): Factory|View|Application|RedirectResponse
     {
-        if ($request->isMethod('GET')) return view('pages.dashboard.account.import');
+        if ($request->isMethod('GET')) {
+            return view('pages.dashboard.account.import');
+        }
         $file = $request->file('file');
         $effected = $this->accountService->import($file->getRealPath());
-        return redirect()->route("services")->with([
-            "import-status" => "imported {$effected} record !"
-        ]);
+        session()->flash('imported', $effected);
+        return redirect()->route("accounts.index");
     }
 
     /**
@@ -133,14 +126,10 @@ class AccountController extends Controller
         return response()->download($filePath)->deleteFileAfterSend();
     }
 
-    /**
-     * @return BinaryFileResponse
-     */
-    public function truncate(): BinaryFileResponse
+    public function list(HasServiceIdRequest $request)
     {
-        $filePath = $this->accountService->export();
-        abort_if(!$filePath, 500);
-        $this->accountService->accountRepository->truncate();
-        return response()->download($filePath)->deleteFileAfterSend();
+        $service = $this->appService->appServiceRepository->findOrFail($request->id);
+        $accounts = $this->accountService->accountRepository->allAccountOfService($request->id);
+        return view('pages.dashboard.account.list', compact('accounts', 'service'));
     }
 }

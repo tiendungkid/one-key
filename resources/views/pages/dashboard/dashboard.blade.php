@@ -11,12 +11,12 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('dashboard')}}">
+                                    <a href="{{ route('dashboard') }}">
                                         <i class="fas fa-home"></i>
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('dashboard')}}">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}">Dashboard</a>
                                 </li>
                             </ol>
                         </nav>
@@ -54,7 +54,7 @@
                                 <span class="h2 font-weight-bold text-success">{{$totalAccount}}</span>
                             </div>
                             <div class="col-auto">
-                                <a href="{{route('accounts')}}"
+                                <a href="{{ route('accounts.index') }}"
                                    class="icon icon-shape border rounded-circle shadow">
                                     <i class="fal fa-fog text-cyan"></i>
                                 </a>

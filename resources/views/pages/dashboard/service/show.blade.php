@@ -60,7 +60,7 @@
                 </form>
             </div>
             <div class="card-footer">
-                <a href="{{ route('accounts.new', ['id' => $service->id]) }}" class="btn btn-secondary">
+                <a href="{{ route('accounts.create', ['id' => $service->id]) }}" class="btn btn-secondary">
                     <i class="fas fa-plus"></i>
                     New account
                 </a>

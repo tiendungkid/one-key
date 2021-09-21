@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +17,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [ProfileController::class, 'show'])->name('profile');
     });
     Route::prefix('users')->group(function () {
-        Route::post('refresh-access-token', [UserController::class, 'refreshAccessToken'])->name('users.refresh-access-token');
+        Route::match(['GET', 'POST'], 'refresh-access-token', [UserController::class, 'refreshAccessToken'])
+            ->name('users.refresh-access-token');
     });
     Route::prefix('setting')->group(function () {
         Route::get('/', [SettingController::class, 'show'])->name('setting');
@@ -41,15 +42,11 @@ Route::middleware(['auth'])->group(function () {
     # Account routes
     # ------------------
     Route::prefix('accounts')->group(function () {
-        Route::get('/', [AccountController::class, 'show'])->name('accounts');
-        Route::get('detail/{id}', [AccountController::class, 'detail'])->name('accounts.detail');
-        Route::get('new/{id}', [AccountController::class, 'new'])->name('accounts.new');
-        Route::get('list/{id}', [AccountController::class, 'list'])->name('accounts.list');
-        Route::post('store', [AccountController::class, 'store'])->name('accounts.store');
-        Route::post('update', [AccountController::class, 'update'])->name('accounts.update');
-        Route::post('delete', [AccountController::class, 'delete'])->name('accounts.delete');
         Route::match(['get', 'post'], 'import', [AccountController::class, 'import'])->name('accounts.import');
         Route::get('export', [AccountController::class, 'export'])->name('accounts.export');
-        Route::post('truncate', [AccountController::class, 'truncate'])->name('accounts.truncate');
+        Route::get('truncate', [AccountController::class, 'truncate'])->name('accounts.truncate');
+        Route::get('list/{id}', [AccountController::class, 'list'])->name('accounts.list');
     });
+    Route::resource('accounts', AccountController::class)
+        ->except('edit');
 });

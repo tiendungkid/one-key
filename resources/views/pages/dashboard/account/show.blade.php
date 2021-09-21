@@ -18,15 +18,15 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('services.index')}}">Services</a>
+                                    <a href="{{ route('accounts.index') }}">Account</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('services.show', $service->id)}}">
-                                        {{ $service->name }}
+                                    <a href="{{ route('services.show', $account->service->id) }}">
+                                        {{ $account->service->name }}
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    <span>New</span>
+                                    <span>{{ $account->name }}</span>
                                 </li>
                             </ol>
                         </nav>
@@ -37,43 +37,66 @@
     </div>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-10 col-xs-12">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <b>{{ $account->name }}</b>
+                        </div>
+                        @if(session()->has('updated'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <span class="alert-text"><strong>Updated!</strong></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        @endif
+                    </div>
                     <div class="card-body">
-                        <form action="{{ route('accounts.store') }}" method="post">
+                        <form action="{{ route('accounts.destroy', $account->id) }}" method="post" id="delete"
+                              onsubmit="return confirm('Are you sure you want !')">
                             @csrf
+                            @method('DELETE')
+                            <input type="hidden" name="service_id" value="{{ $account->service->id }}">
+                        </form>
+                        <form action="{{ route('accounts.update', $account->id) }}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="service_id" value="{{ $account->service->id }}">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" id="name" placeholder="Name" class="form-control">
+                                <input type="text" name="name" id="name" placeholder="Name" class="form-control"
+                                       value="{{ $account->name }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" id="password" placeholder="Password"
-                                       class="form-control">
+                                       class="form-control" value="{{ $account->password }}">
                             </div>
 
                             <div class="form-group">
-                                <label for="two_fa_code">2FA Code (Optional)</label>
+                                <label for="two_fa_code">2FA Code</label>
                                 <input type="text" name="two_fa_code" id="two_fa_code" placeholder="2FA Code"
-                                       class="form-control">
+                                       class="form-control" value="{{ $account->two_fa_code }}">
                             </div>
 
                             <div class="form-group">
-                                <label for="color">Color label (Optional)</label>
-                                <input type="color" name="color" id="color" class="form-control" value="#7cc7e6">
+                                <label for="color">Color label</label>
+                                <input type="color" name="color" id="color" class="form-control"
+                                       value="{{ $account->color }}">
                             </div>
 
                             <div class="form-group">
-                                <label for="attributes" class="w-100 d-block">Tags (Optional)</label>
+                                <label for="attributes"></label>
                                 <input type="text" class="form-control" name="attributes" id="attributes"
-                                       placeholder="Notes" data-toggle="tags"/>
+                                       placeholder="Notes" data-toggle="tags" value="{{ $account->attributes }}"/>
                             </div>
 
                             <div class="form-group">
-                                <label class="form-control-label" for="description">Description (Optional)</label>
+                                <label class="form-control-label" for="description">Description</label>
                                 <textarea name="description" class="form-control" id="description" rows="3"
-                                          resize="none"></textarea>
+                                          resize="none">{{ $account->description }}</textarea>
                             </div>
 
                             @if($errors->any())
@@ -82,8 +105,13 @@
                                 @endforeach
                             @endif
 
-                            <button type="submit" class="btn btn-primary" name="service_id" value="{{ $service->id }}">
-                                Create
+                            <button type="submit" class="btn btn-primary" name="id" value="{{ $account->id }}">
+                                Update
+                            </button>
+
+                            <button type="submit" form="delete" class="btn btn-danger" name="id"
+                                    value="{{ $account->id }}">
+                                Delete
                             </button>
                         </form>
                     </div>

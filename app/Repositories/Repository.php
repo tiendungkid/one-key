@@ -69,7 +69,8 @@ abstract class Repository implements RepositoryInterface
         try {
             if ($ignore_error) return $this->model->insertOrIgnore($records);
             return (int)$this->model->insert($records);
-        } catch (Exception) {
+        } catch (Exception $e) {
+            logger()->error($e->getMessage());
             return 0;
         }
     }

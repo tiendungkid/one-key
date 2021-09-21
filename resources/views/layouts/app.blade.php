@@ -44,7 +44,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('accounts')}}" class="nav-link">
+                        <a href="{{ route('accounts.index') }}" class="nav-link">
                             <span class="nav-link-text">Accounts</span>
                         </a>
                     </li>

@@ -32,7 +32,7 @@ class ServiceController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        return view('pages.dashboard.service.service');
+        return view('pages.dashboard.service.index');
     }
 
     /**
@@ -41,7 +41,7 @@ class ServiceController extends Controller
      */
     public function create(): Factory|View|Application
     {
-        return view('pages.dashboard.service.new');
+        return view('pages.dashboard.service.create');
     }
 
     /**
@@ -56,6 +56,7 @@ class ServiceController extends Controller
         if (!$status) return back()->withErrors([
             "Something wrong !"
         ]);
+        session()->flash('created', true);
         return redirect()->route('services.show', $status->id);
     }
 
@@ -66,9 +67,8 @@ class ServiceController extends Controller
      */
     public function show(int $id): Factory|View|Application
     {
-        $service = $this->appService->appServiceRepository->find($id);
-        if (!$service) abort(404);
-        return view('pages.dashboard.service.detail', compact('service'));
+        $service = $this->appService->appServiceRepository->findOrFail($id);
+        return view('pages.dashboard.service.show', compact('service'));
     }
 
     /**

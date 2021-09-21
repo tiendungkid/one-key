@@ -11,12 +11,12 @@
                         <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('dashboard')}}">
+                                    <a href="{{ route('dashboard') }}">
                                         <i class="fas fa-home"></i>
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{route('accounts')}}">Account</a>
+                                    <a href="{{ route('accounts.index') }}">Account</a>
                                 </li>
                             </ol>
                         </nav>
@@ -48,5 +48,18 @@
                 </a>
             </div>
         </div>
+        @if(session()->has('imported'))
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <span
+                            class="alert-text"><strong>Imported {{ session('imported') }} records!</strong></span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 @endsection

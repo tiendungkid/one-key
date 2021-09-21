@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use JetBrains\PhpStorm\ArrayShape;
 
 class ImportAccountRequest extends FormRequest
 {
@@ -20,6 +21,7 @@ class ImportAccountRequest extends FormRequest
      * Get the validation rules that apply to the request.
      * @return array
      */
+    #[ArrayShape(["file" => "array"])]
     public function rules(): array
     {
         return [
