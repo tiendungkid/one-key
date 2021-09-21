@@ -46,12 +46,12 @@ class AppServiceRepositoryEloquent extends Repository implements AppServiceRepos
     public function searchAccountByServiceName(string $query): Collection
     {
         $serviceIdList = $this->model
-            ->where("home_link", "LIKE", "%{$query}%")
+            ->where("home_link", "LIKE", "%$query%")
             ->get()
             ->modelKeys();
         return Account::whereIN('service_id', $serviceIdList)
-            ->orWhere("attributes", "LIKE", "%{$query}%")
-            ->orWhere("description", "LIKE", "%{$query}%")
+            ->orWhere("attributes", "LIKE", "%$query%")
+            ->orWhere("description", "LIKE", "%$query%")
             ->with('service')
             ->get();
     }
