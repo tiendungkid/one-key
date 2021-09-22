@@ -138,6 +138,5 @@
 <script src="{{asset('vendors/argon/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js')}}"></script>
 <script src="{{asset('vendors/chart.js/dist/Chart.min.js')}}"></script>
 <script src="{{asset('vendors/argon/js/argon.js')}}"></script>
-<script src="{{asset('js/app/app.js')}}"></script>
 @yield('script')
 </html>
