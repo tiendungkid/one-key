@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('vendors/argon/css/argon.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/fontawesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/app/app.css')}}">
+    <link rel="shortcut icon" href="{{ asset('images/app/tiendungkid.png') }}" type="image/x-icon">
     @yield('head')
     @yield('style')
 </head>
@@ -125,11 +126,9 @@
             </div>
         </div>
     </nav>
-    <!-- Main content -->
     @yield('content')
 </div>
 </body>
-{{--Argon core--}}
 <script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
 @yield('script-plugin')
 <script src="{{asset('vendors/argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
