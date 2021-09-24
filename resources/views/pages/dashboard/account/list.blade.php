@@ -29,6 +29,12 @@
                             </ol>
                         </nav>
                     </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        <a href="{{route('accounts.create', ['id' => $service->id])}}"
+                           class="btn btn-sm btn-neutral">
+                            New account
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

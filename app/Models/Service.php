@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Service extends Model
 {
 
-    protected $fillable = ["name", "home_link"];
+    protected $fillable = ['name', 'home_link'];
 
     /**
      * @return HasMany

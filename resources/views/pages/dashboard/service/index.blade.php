@@ -54,7 +54,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-flush dataTable" id="service-table">
+                            <table class="table table-flush dataTable" id="service-table" style="width: 100%">
                                 <thead class="thead-light">
                                 <tr>
                                     <th>#</th>

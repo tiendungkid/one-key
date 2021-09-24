@@ -25,13 +25,16 @@ const serviceDatatable = serviceTable.DataTable({
                 return `<a href="${URIs.show.replace('services/0', `services/${row['id']}`)}">${data}</a>`;
             }
         },
-        {data: 'home_link'},
+        {
+            data: 'home_link',
+            visible: false,
+        },
         {
             data: 'accounts_count',
             render(data, type, row) {
                 return `<a href="${URIs.accountList.replace('accounts/list/0', `accounts/list/${row['id']}`)}">${data}</a>`;
             },
-            searchable: false
+            searchable: false,
         },
         {
             data: 'created_at',

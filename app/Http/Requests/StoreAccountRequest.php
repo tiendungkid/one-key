@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\UniqueAccountName;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\ArrayShape;
 
 class StoreAccountRequest extends FormRequest
@@ -38,7 +39,8 @@ class StoreAccountRequest extends FormRequest
             ],
             "service_id" => [
                 "required",
-                "numeric"
+                "numeric",
+                Rule::exists('services', 'id')
             ]
         ];
     }

@@ -8,7 +8,15 @@ use JetBrains\PhpStorm\NoReturn;
 
 class Account extends Model
 {
-    protected $fillable = ['name', 'password', 'two_fa_code', 'color', 'attributes', 'description', 'service_id'];
+    protected $fillable = [
+        'name',
+        'password',
+        'two_fa_code',
+        'color',
+        'attributes',
+        'description',
+        'service_id'
+    ];
 
     /**
      * @param string|null $value
